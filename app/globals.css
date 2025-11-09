@@ -16,6 +16,12 @@
   }
 }
 
+* {
+  /* Performance optimization: use GPU acceleration for transforms and opacity */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -24,6 +30,8 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  /* Improve scrolling performance */
+  -webkit-overflow-scrolling: touch;
 }
 
 @layer utilities {
@@ -31,11 +39,14 @@ body {
     text-wrap: balance;
   }
 }
+
 .side-icon {
   height: 20px;
   width: 20px;
   mix-blend-mode: difference;
   /* fill: red; */
+  transition: opacity 0.2s ease-in-out; /* Smooth transition */
+
   path {
     fill: white;
   }
@@ -44,6 +55,27 @@ body {
     opacity: 0.4;
   }
 }
+
+/* Performance optimizations for images and animations */
+img,
+video {
+  /* Improve rendering performance */
+  image-rendering: -webkit-optimize-contrast;
+  transform: translateZ(0); /* Force GPU acceleration */
+}
+
+/* Optimize animations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* .social-icons-container a {
   mix-blend-mode: difference;
 } */

@@ -1,9 +1,14 @@
-import React from "react";
+import React, { memo, useCallback } from "react";
 // import Ashleigh from "../images/ashleigh.svg";
 import styles from "../styles/Phone.module.css";
 // import { openContact } from "./contact";
 
 const Phone = () => {
+  const handleClick = useCallback(() => {
+    // openContact();
+    console.log("onpressing hireme");
+  }, []);
+
   return (
     <div className={styles.phone} id="phone">
       <div className={styles.innerSkin}>
@@ -13,10 +18,8 @@ const Phone = () => {
           <h2 className={styles.subtitle}>Let&apos;s build together...</h2>
           <button
             className={`${styles.button} ${styles.hasRainbowBackground} ${styles.hasTextWhite} ${styles.isRounded}`}
-            onClick={() => {
-              // openContact();
-              console.log("onpressing hireme");
-            }}>
+            onClick={handleClick}
+            aria-label="Let's Talk">
             Let&apos;s Talk
           </button>
         </div>
@@ -25,4 +28,5 @@ const Phone = () => {
   );
 };
 
-export default Phone;
+// Memoize to prevent unnecessary re-renders
+export default memo(Phone);

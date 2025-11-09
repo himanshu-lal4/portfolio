@@ -1,23 +1,20 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
-import { loadFull } from "tsparticles";
+// import { loadFull } from "tsparticles";
 // import { loadAll } from "@/tsparticles/all";
 import { loadSlim } from "@tsparticles/slim";
-import { loadBasic } from "@tsparticles/basic";
+// import { loadBasic } from "@tsparticles/basic";
 const ParticleBackground = () => {
   const [init, setInit] = useState(false);
   useEffect(() => {
+    // Using loadSlim instead of loadFull for better performance
     initParticlesEngine(async (engine) => {
-      await loadFull(engine);
+      await loadSlim(engine);
     }).then(() => {
       setInit(true);
     });
   }, []);
-
-  const particlesLoaded = (container) => {
-    console.log(container);
-  };
 
   return (
     init && (
@@ -32,58 +29,47 @@ const ParticleBackground = () => {
         }}>
         <Particles
           id="tsparticles"
-          particlesLoaded={particlesLoaded}
           options={{
             background: {
               color: {
                 value: "#0b1729",
               },
             },
-            fpsLimit: 120,
+            fpsLimit: 60, // Reduced from 120 for better performance
             interactivity: {
               events: {
                 onClick: {
-                  enable: true,
+                  enable: false, // Disabled for performance
                   mode: "push",
                 },
                 onHover: {
                   enable: true,
                   mode: "repulse",
                 },
-                resize: true,
+                resize: {
+                  enable: true,
+                  delay: 0.5,
+                },
               },
               modes: {
                 push: {
                   quantity: 0,
                 },
                 repulse: {
-                  distance: 150,
-                  duration: 0.4,
-                },
-                grab: {
-                  distance: 200,
-                  line_linked: {
-                    opacity: 1,
-                  },
+                  distance: 100, // Reduced from 150
+                  duration: 0.3, // Reduced from 0.4
                 },
               },
             },
             particles: {
               color: {
-                value: [
-                  "c912ed",
-                  "00bfff",
-                  "22dd22",
-                  "ffd500",
-                  "ff8000",
-                  "ff2600",
-                ],
+                value: "#ffffff", // Single color instead of array for better performance
               },
               links: {
                 color: "#ffffff",
-                distance: 150,
+                distance: 120, // Reduced from 150
                 enable: true,
-                opacity: 0.5,
+                opacity: 0.3, // Reduced from 0.5
                 width: 1,
               },
               move: {
@@ -92,32 +78,25 @@ const ParticleBackground = () => {
                 outModes: {
                   default: "out",
                 },
-                attract: {
-                  enable: false,
-                  rotateX: 600,
-                  rotateY: 1200,
-                },
                 random: false,
-                speed: 3,
+                speed: 1.5, // Reduced from 3
                 straight: false,
               },
               number: {
                 density: {
                   enable: true,
-                  area: 800,
+                  area: 1000, // Increased area = fewer particles
                 },
-                value: 40,
+                value: 25, // Reduced from 40
               },
               opacity: {
-                value: 0.5,
-                sync: false,
+                value: 0.4, // Reduced from 0.5
               },
               shape: {
                 type: "circle",
               },
               size: {
-                value: { min: 1, max: 5 },
-                sync: false,
+                value: { min: 1, max: 3 }, // Reduced max from 5
               },
             },
             detectRetina: true,
@@ -128,4 +107,5 @@ const ParticleBackground = () => {
   );
 };
 
-export default ParticleBackground;
+// Memoize to prevent unnecessary re-renders
+export default memo(ParticleBackground);

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { memo } from "react";
 import Typewriter from "typewriter-effect";
 
 const TypeAnimation = ({ strings }) => {
@@ -11,12 +11,10 @@ const TypeAnimation = ({ strings }) => {
         loop: true,
         deleteSpeed: 60,
         cursor: "_",
-        css: `
-          color: #FFC83D; // Change this to the desired color code
-        `,
       }}
     />
   );
 };
 
-export default TypeAnimation;
+// Memoize to prevent unnecessary re-renders
+export default memo(TypeAnimation);

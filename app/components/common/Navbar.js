@@ -1,16 +1,20 @@
 "use client";
+import { memo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import styles from "../../styles/Navbar.module.css";
+
 function Navbar() {
   return (
     <nav className={styles.navbar}>
       <div className="logo">
-        <Link href="/">
-          <img
-            src={"signature.png"}
-            width="180px"
-            height="180px"
-            alt="Dynamic Image"
+        <Link href="/" aria-label="Home">
+          <Image
+            src="/signature.png"
+            width={180}
+            height={180}
+            alt="Portfolio Signature"
+            priority
           />
         </Link>
       </div>
@@ -21,12 +25,12 @@ function Navbar() {
         <Link href="/button4">Experiences</Link>
         <Link href="/button5">Skills</Link>
 
-        <button className={styles.resumeBtn}>resume</button>
-        <img
+        <button className={styles.resumeBtn} aria-label="Download Resume">resume</button>
+        <Image
           src="/lightMode.png"
-          alt="developerLogo"
-          width="40"
-          height="40"
+          alt="Toggle Light Mode"
+          width={40}
+          height={40}
           style={{ cursor: "pointer" }}
         />
       </div>
@@ -34,4 +38,5 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+// Memoize to prevent unnecessary re-renders
+export default memo(Navbar);

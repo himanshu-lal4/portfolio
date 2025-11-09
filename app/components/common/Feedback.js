@@ -1,36 +1,31 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState, useCallback, memo } from "react";
 import styles from "../../styles/Feedback.module.css";
 
 function Feedback() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [reactionClicked, setReactionClicked] = useState(false);
   const [selectedEmoji, setSelectedEmoji] = useState(null);
-
-  const openModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
-
   const [textAreaValue, setTextAreaValue] = useState("");
 
+  const openModal = useCallback(() => {
+    setIsModalOpen((prev) => !prev);
+  }, []);
+
+  const closeModal = useCallback(() => {
+    setIsModalOpen(false);
+  }, []);
+
   // Function to handle textarea change
-  const handleChange = (event) => {
+  const handleChange = useCallback((event) => {
     setTextAreaValue(event.target.value);
-  };
+  }, []);
 
   // Function to handle emoji click
-  const handleEmojiClick = (emoji) => {
+  const handleEmojiClick = useCallback((emoji) => {
     setReactionClicked(true);
-    if (emoji == selectedEmoji) {
-      setSelectedEmoji(null);
-    } else {
-      setSelectedEmoji(emoji);
-    }
-  };
+    setSelectedEmoji((prev) => (prev === emoji ? null : emoji));
+  }, []);
 
   return (
     <>
@@ -130,4 +125,5 @@ function Feedback() {
   );
 }
 
-export default Feedback;
+// Memoize to prevent unnecessary re-renders
+export default memo(Feedback);

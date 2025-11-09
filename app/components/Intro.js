@@ -1,7 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "@styles/main.module.css";
-import TypeAnimation from "./TypeAnimation";
-import { Cursor } from "react-simple-typewriter";
+// import TypeAnimation from "./TypeAnimation";
+// import { Cursor } from "react-simple-typewriter";
 
 function Intro() {
   return (
@@ -13,9 +13,9 @@ function Intro() {
           aka <span>himanshu_lal</span>
         </a>
       </p>
-      <p></p>
     </div>
   );
 }
 
-export default Intro;
+// Memoize to prevent unnecessary re-renders
+export default memo(Intro);
