@@ -1,11 +1,13 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "../styles/main.module.css";
 import { Cursor, useTypewriter } from "react-simple-typewriter";
+
 function PlatformTypeAnimation() {
   const [text] = useTypewriter({
     words: ["web", "mobile"],
-    loop: {},
+    loop: 0, // Infinite loop (0 = infinite, {} is not standard)
     typeSpeed: 60,
+    deleteSpeed: 50,
   });
   return (
     <p className={styles.platforms}>
@@ -16,4 +18,5 @@ function PlatformTypeAnimation() {
   );
 }
 
-export default PlatformTypeAnimation;
+// Memoize to prevent unnecessary re-renders
+export default memo(PlatformTypeAnimation);

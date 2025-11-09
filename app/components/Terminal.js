@@ -1,7 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useCallback, memo } from "react";
 import Terminal, { ColorMode, TerminalOutput } from "react-terminal-ui";
 import styles from "../styles/Terminal.module.css";
+
 const TerminalComponent = () => {
   const [terminalLineData, setTerminalLineData] = useState([
     <div key="initial">
@@ -21,8 +22,9 @@ const TerminalComponent = () => {
       </TerminalOutput>
     </div>,
   ]);
-  const handleInput = (input) => {
-    if (input == "commands") {
+
+  const handleInput = useCallback((input) => {
+    if (input === "commands") {
       setTerminalLineData([
         <div key="commands">
           <div
@@ -55,18 +57,17 @@ const TerminalComponent = () => {
         </div>,
       ]);
     }
-  };
+  }, []);
+
   return (
     <div className={styles.container}>
       <Terminal
-        name="WRACK 👨‍💻" // Set the name of the terminal
-        colorMode={ColorMode.Dark} // Set the color mode to Light
-        onInput={(terminalInput) => {
-          handleInput(terminalInput);
-        }} // Set the onInput callback function
-        startingInputValue="" // Set the starting input value
+        name="WRACK 👨‍💻"
+        colorMode={ColorMode.Dark}
+        onInput={handleInput}
+        startingInputValue=""
         prompt="C:\wrack\portfolio$"
-        height="415px" // Set the height of the terminal
+        height="415px"
       >
         {terminalLineData}
       </Terminal>
@@ -74,4 +75,5 @@ const TerminalComponent = () => {
   );
 };
 
-export default TerminalComponent;
+// Memoize to prevent unnecessary re-renders
+export default memo(TerminalComponent);

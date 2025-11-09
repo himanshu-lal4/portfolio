@@ -1,8 +1,21 @@
 "use client";
-import TerminalComponent from "./components/Terminal";
-import Phone from "./components/Phone";
+import dynamic from "next/dynamic";
 import Homepage from "./pages/Homepage";
-import Recruitment from "./components/Recruitment";
+
+// Lazy load heavy components for better performance
+const TerminalComponent = dynamic(() => import("./components/Terminal"), {
+  loading: () => <div style={{ height: "415px" }}>Loading terminal...</div>,
+  ssr: false, // Terminal doesn't need SSR
+});
+
+const Phone = dynamic(() => import("./components/Phone"), {
+  loading: () => <div>Loading...</div>,
+});
+
+const Recruitment = dynamic(() => import("./components/Recruitment"), {
+  loading: () => <div>Loading...</div>,
+});
+
 export default function Home() {
   return (
     <div>

@@ -1,5 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo, useMemo } from "react";
+import Image from "next/image";
 import TypeAnimation from "../components/TypeAnimation";
 import Navbar from "../components/common/Navbar";
 import styles from "../styles/main.module.css";
@@ -8,39 +9,44 @@ import SocialIconLinks from "../components/SocialLinks";
 import styled from "@emotion/styled";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Feedback from "../components/common/Feedback";
+
+// Memoize styled components outside the component
+const ItemsContainer = styled.div`
+  display: none;
+  background-color: transparent;
+  position: fixed;
+  flex-direction: column;
+  left: 40px;
+  bottom: 0;
+  font-size: 40px;
+  justify-content: center;
+  align-items: center;
+  mix-blend-mode: difference;
+
+  display: flex;
+
+  > * {
+    margin-bottom: 15px;
+  }
+
+  a {
+    line-height: 0;
+  }
+`;
+
+const Line = styled.div`
+  height: 100px;
+  width: 2px;
+  background-color: white;
+`;
+
 function Homepage() {
-  const roles = ["DSA Enthusiast", "Mobile App Developer", "Web Developer"];
-  const ItemsContainer = styled.div`
-    display: none;
-    background-color: transparent;
-    position: fixed;
-    flex-direction: column;
-    left: 40px;
-    bottom: 0;
-    font-size: 40px;
-    justify-content: center;
-    align-items: center;
-    mix-blend-mode: difference;
-
-    display: flex;
-
-    > * {
-      margin-bottom: 15px;
-    }
-
-    a {
-      line-height: 0;
-    }
-  `;
-  const Line = styled.div`
-    height: 100px;
-    width: 2px;
-    background-color: white;
-  `;
+  const roles = useMemo(() => ["DSA Enthusiast", "Mobile App Developer", "Web Developer"], []);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setIsMounted(true), 1800);
+    const timer = setTimeout(() => setIsMounted(true), 1800);
+    return () => clearTimeout(timer); // Cleanup timer on unmount
   }, []);
   return (
     <div className={styles.main}>
@@ -60,11 +66,12 @@ function Homepage() {
             <TypeAnimation strings={roles} />
           </div>
           <div>
-            <img
+            <Image
               src="/developerImg.png"
-              alt="developerLogo"
-              width="500"
-              height="500"
+              alt="Developer Illustration"
+              width={500}
+              height={500}
+              priority
             />
           </div>
         </section>
@@ -86,4 +93,5 @@ function Homepage() {
   );
 }
 
-export default Homepage;
+// Memoize to prevent unnecessary re-renders
+export default memo(Homepage);
