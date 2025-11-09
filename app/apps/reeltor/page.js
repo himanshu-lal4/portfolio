@@ -65,6 +65,7 @@ export default function Page() {
             try {
                 window.location.replace(`intent://details?id=com.reeltor#Intent;scheme=market;package=com.android.vending;S.browser_fallback_url=${encodeURIComponent(playStore)};end`);
                 redirectAttempts++;
+                setTimeout(() => window.close(), 500);
             } catch (e) {
                 console.log('Intent redirect failed, trying alternative');
             }
@@ -75,6 +76,7 @@ export default function Page() {
                     try {
                         window.location.href = 'market://details?id=com.reeltor';
                         redirectAttempts++;
+                        setTimeout(() => window.close(), 500);
                     } catch (e) {
                         console.log('Market protocol failed');
                     }
@@ -85,8 +87,9 @@ export default function Page() {
             setTimeout(() => {
                 if (!hasLeftPage && !document.hidden) {
                     try {
-                        window.location.href = playStore;
+                        window.location.replace(playStore);
                         redirectAttempts++;
+                        setTimeout(() => window.close(), 500);
                     } catch (e) {
                         console.log('Web redirect failed');
                     }
@@ -99,7 +102,8 @@ export default function Page() {
                     try {
                         const opened = window.open(playStore, '_blank');
                         if (opened) {
-                            window.location.href = playStore;
+                            window.location.replace(playStore);
+                            setTimeout(() => window.close(), 500);
                         }
                     } catch (e) {
                         console.log('Window open failed');
@@ -110,15 +114,18 @@ export default function Page() {
             // Strategy 1: Try direct App Store link with replace (more reliable)
             try {
                 window.location.replace(appStore);
+                setTimeout(() => window.close(), 500);
             } catch (e) {
                 console.log('Replace failed, trying href');
                 window.location.href = appStore;
+                setTimeout(() => window.close(), 500);
             }
 
             // Strategy 2: Backup with href after 500ms
             setTimeout(() => {
                 if (!hasLeftPage && !document.hidden) {
-                    window.location.href = appStore;
+                    window.location.replace(appStore);
+                    setTimeout(() => window.close(), 500);
                 }
             }, 500);
 
@@ -127,7 +134,8 @@ export default function Page() {
                 if (!hasLeftPage && !document.hidden) {
                     const opened = window.open(appStore, '_blank');
                     if (opened) {
-                        window.location.href = appStore;
+                        window.location.replace(appStore);
+                        setTimeout(() => window.close(), 500);
                     }
                 }
             }, 1000);
