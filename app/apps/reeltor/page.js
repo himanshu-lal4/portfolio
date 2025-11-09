@@ -14,7 +14,7 @@ export default function Page() {
         // Show fallback links after 3 seconds if redirect doesn't work
         const fallbackTimer = setTimeout(() => {
             setShowFallback(true);
-        }, 2000);
+        }, 3000);
 
         if (isAndroid) {
             // Try to open Play Store app first, fallback to web
