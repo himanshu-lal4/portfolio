@@ -4,7 +4,7 @@ import Terminal, { ColorMode, TerminalOutput } from "react-terminal-ui";
 import styles from "../styles/Terminal.module.css";
 const TerminalComponent = () => {
   const [terminalLineData, setTerminalLineData] = useState([
-    <div>
+    <div key="initial">
       <div
         style={{
           display: "flex",
@@ -14,9 +14,9 @@ const TerminalComponent = () => {
         }}>
         <TerminalOutput>Know more about me</TerminalOutput>
       </div>
-      <TerminalOutput>Welcome to the wrack's terminal!</TerminalOutput>
+      <TerminalOutput>Welcome to the wrack&apos;s terminal!</TerminalOutput>
       <TerminalOutput>
-        Type "<span style={{ color: "#F4C025" }}>commands</span>" into the
+        Type &quot;<span style={{ color: "#F4C025" }}>commands</span>&quot; into the
         terminal window and hit enter to see all commands
       </TerminalOutput>
     </div>,
@@ -24,7 +24,7 @@ const TerminalComponent = () => {
   const handleInput = (input) => {
     if (input == "commands") {
       setTerminalLineData([
-        <div>
+        <div key="commands">
           <div
             style={{
               display: "flex",
@@ -34,9 +34,9 @@ const TerminalComponent = () => {
             }}>
             <TerminalOutput>Know more about me</TerminalOutput>
           </div>
-          <TerminalOutput>Welcome to the wrack's terminal!</TerminalOutput>
+          <TerminalOutput>Welcome to the wrack&apos;s terminal!</TerminalOutput>
           <TerminalOutput>
-            Type "<span style={{ color: "#F4C025" }}>commands</span>" into the
+            Type &quot;<span style={{ color: "#F4C025" }}>commands</span>&quot; into the
             terminal window and hit enter to see all commands
           </TerminalOutput>
           <TerminalOutput>

@@ -10,14 +10,14 @@ const Phone = () => {
         <div className={styles.phoneContent}>
           <h1 className={styles.title}>Hello There, Stranger!</h1>
           {/* <Ashleigh className={styles.bounce} /> */}
-          <h2 className={styles.subtitle}>Let's build together...</h2>
+          <h2 className={styles.subtitle}>Let&apos;s build together...</h2>
           <button
             className={`${styles.button} ${styles.hasRainbowBackground} ${styles.hasTextWhite} ${styles.isRounded}`}
             onClick={() => {
               // openContact();
               console.log("onpressing hireme");
             }}>
-            Let's Talk
+            Let&apos;s Talk
           </button>
         </div>
       </div>

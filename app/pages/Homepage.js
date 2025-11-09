@@ -51,7 +51,7 @@ function Homepage() {
           <div className={styles.box}>
             <p style={{ fontSize: 40 }}>Hello!</p>
             <p style={{ fontSize: 30 }}>
-              I'm Wrack{" "}
+              I&apos;m Wrack{" "}
               <a className={styles.nameSmall}>
                 aka <span>himanshu_lal</span>
               </a>
