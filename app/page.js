@@ -1,6 +1,6 @@
 "use client";
 import TerminalComponent from "./components/Terminal";
-import Phone from "./components/phone";
+import Phone from "./components/Phone";
 import Homepage from "./pages/Homepage";
 import Recruitment from "./components/Recruitment";
 export default function Home() {
