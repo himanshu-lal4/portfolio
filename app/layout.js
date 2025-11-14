@@ -8,7 +8,7 @@ export const metadata = {
   title: "Wrack - Software Engineer",
   description: "Portfolio of Himanshu Lal - Mobile App Developer & Web Developer",
   icons: {
-    icon: '/favicon.png',
+    icon: '/favicon.ico',
   },
   viewport: {
     width: 'device-width',
@@ -16,6 +16,10 @@ export const metadata = {
     maximumScale: 5,
   },
   themeColor: '#0b1729',
+  metadataBase: new URL("https://www.wrack.dev"),
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function RootLayout({ children }) {
